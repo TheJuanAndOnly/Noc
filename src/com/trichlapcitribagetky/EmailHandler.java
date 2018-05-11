@@ -3,10 +3,18 @@ package com.trichlapcitribagetky;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+
 
 /**
  * Created by Robert Gers on 11.05.2018.
@@ -22,43 +30,70 @@ public class EmailHandler {
         Scanner scanner;
         try {
             scanner = new Scanner(new FileReader(new File(pathName)));
+            scanner.useLocale(Locale.US);
         } catch (FileNotFoundException e) {
             return RESULT_ERROR;
         }
 
         emails = new ArrayList<>();
 
-        while (scanner.hasNext()) {
+        while (scanner.hasNextLine()) {
+
             String odosielatel;
             if (scanner.hasNextLine()) {
                 odosielatel = scanner.nextLine();
-            } else return RESULT_ERROR;
+                System.out.println(odosielatel);
+            } else {
+                return RESULT_ERROR;
+            }
 
             String prijimatel;
             if (scanner.hasNextLine()) {
                 prijimatel = scanner.nextLine();
-            } else return RESULT_ERROR;
+                System.out.println(prijimatel);
+            } else {
+                return RESULT_ERROR;
+            }
 
             int priorita;
-            if (scanner.hasNextInt()) {
-                priorita = scanner.nextInt();
-            } else return RESULT_ERROR;
+            if (scanner.hasNextLine()) {
+                try {
+                    String s = scanner.nextLine();
+                    System.out.println(s);
+                    priorita = Integer.parseInt(s);
+                } catch (NumberFormatException e){
+                    return RESULT_ERROR;
+                }
+            } else {
+                return RESULT_ERROR;
+            }
 
             float velkost;
-            if (scanner.hasNextFloat()) {
-                velkost = scanner.nextFloat();
-            } else return RESULT_ERROR;
+            if (scanner.hasNextLine()) {
+                String s = scanner.nextLine();
+                velkost = Float.parseFloat(s);
+                System.out.println(velkost);
+            } else {
+                return RESULT_ERROR;
+            }
 
-            int datum;
-            if (scanner.hasNextInt()) {
-                datum = scanner.nextInt();
-            } else return RESULT_ERROR;
+            String datum;
+            if (scanner.hasNextLine()) {
+                datum = scanner.nextLine();
+                System.out.println(datum);
+            } else {
+                return RESULT_ERROR;
+            }
 
 
             float cas;
-            if (scanner.hasNextFloat()) {
-                cas = scanner.nextFloat();
-            } else return RESULT_ERROR;
+            if (scanner.hasNextLine()) {
+                String s = scanner.nextLine();
+                cas = Float.parseFloat(s);
+                System.out.println(cas);
+            } else {
+                return RESULT_ERROR;
+            }
 
             emails.add(
                     new Email(
@@ -69,6 +104,14 @@ public class EmailHandler {
                             datum,
                             cas
                     ));
+
+            if (scanner.hasNextLine()){
+                scanner.nextLine();
+            } else break;
+        }
+
+        for (Email e : emails){
+            System.out.println(e);
         }
 
         return RESULT_OK;
@@ -76,28 +119,33 @@ public class EmailHandler {
 
     public float najvacsiCas() {
 
-        String najstarsiDatum;
+        Date najstarsiDatum = Date.from(Instant.MAX);
+        DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         float cas = 0f;
+
         for (Email email : emails) {
 
-            DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
+
             String novyDatumS = email.getDatum().substring(0,2) + "/" + email.getDatum().substring(2,4) + "/" + email.getDatum().substring(4, email.getDatum().length());
-            String najstarsiDatumS = email.getDatum().substring(0,2) + "/" + email.getDatum().substring(2,4) + "/" + email.getDatum().substring(4, email.getDatum().length());
 
-            Date staryDatum = (sourceFormat.parse(najstarsiDatumS)
-            Date novyDatum = sourceFormat.parse(novyDatumS);
+            Date novyDatum = null;
+            try {
+                novyDatum = sourceFormat.parse(novyDatumS);
+            } catch (ParseException e) {
+                break;
+            }
 
 
+            if (najstarsiDatum.compareTo(novyDatum) > 0) {
+                najstarsiDatum = novyDatum;
+                cas = email.getCas();
+            } else if (najstarsiDatum.compareTo(novyDatum) < 0) {
 
-            if (date1.compareTo(date2) > 0) {
-                System.out.println("Date1 is after Date2");
-            } else if (date1.compareTo(date2) < 0) {
-                System.out.println("Date1 is before Date2");
-            } else if (date1.compareTo(date2) == 0) {
-                System.out.println("Date1 is equal to Date2");
+            } else if (najstarsiDatum.compareTo(novyDatum) == 0) {
+
             } else {
-                System.out.println("How to get here?");
+
             }
 
         }
