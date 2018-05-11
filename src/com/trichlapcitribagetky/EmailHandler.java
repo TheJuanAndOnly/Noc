@@ -74,4 +74,16 @@ public class EmailHandler {
 
         return RESULT_OK;
     }
+
+    public float najvacsiCas() {
+        String najstarsiDatum = "";
+        float cas = 0f;
+        for (Email email : emails) {
+            if (email.getPriorita() == 1) {
+
+            }
+        }
+
+        return cas;
+    }
 }
