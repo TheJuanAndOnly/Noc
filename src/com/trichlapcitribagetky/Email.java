@@ -69,13 +69,13 @@ public class Email {
     @Override
     public String toString() {
         return String.format(
-                "odosielatel: %S\n" +
+                "odosielatel: %s\n" +
                         "prijemca: %s\n" +
                         "vysoka priorita: %s\n" +
                         "velkost: %s\n" +
                         "datum: %s\n" +
                         "cas: %s\n",
                 odosielatel, prijemca, priorita, velkost, datum, cas
-        ).toLowerCase();
+        );
     }
 }

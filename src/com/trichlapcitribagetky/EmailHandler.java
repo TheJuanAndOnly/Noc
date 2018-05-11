@@ -15,7 +15,6 @@ public class EmailHandler {
     public static final int RESULT_OK = 1;
     public static final int RESULT_ERROR = -1;
 
-
     private List<Email> emails;
 
     public int vypisInfo(String pathName){
@@ -34,7 +33,6 @@ public class EmailHandler {
             String odosielatel;
             if (scanner.hasNextLine()) {
                 odosielatel = scanner.nextLine();
-                System.out.println(odosielatel);
             } else {
                 return RESULT_ERROR;
             }
@@ -42,7 +40,6 @@ public class EmailHandler {
             String prijimatel;
             if (scanner.hasNextLine()) {
                 prijimatel = scanner.nextLine();
-                System.out.println(prijimatel);
             } else {
                 return RESULT_ERROR;
             }
@@ -51,7 +48,6 @@ public class EmailHandler {
             if (scanner.hasNextLine()) {
                 try {
                     String s = scanner.nextLine();
-                    System.out.println(s);
                     priorita = Integer.parseInt(s);
                 } catch (NumberFormatException e){
                     return RESULT_ERROR;
@@ -64,7 +60,6 @@ public class EmailHandler {
             if (scanner.hasNextLine()) {
                 String s = scanner.nextLine();
                 velkost = Float.parseFloat(s);
-                System.out.println(velkost);
             } else {
                 return RESULT_ERROR;
             }
@@ -72,7 +67,6 @@ public class EmailHandler {
             String datum;
             if (scanner.hasNextLine()) {
                 datum = scanner.nextLine();
-                System.out.println(datum);
             } else {
                 return RESULT_ERROR;
             }
@@ -82,7 +76,6 @@ public class EmailHandler {
             if (scanner.hasNextLine()) {
                 String s = scanner.nextLine();
                 cas = Float.parseFloat(s);
-                System.out.println(cas);
             } else {
                 return RESULT_ERROR;
             }
