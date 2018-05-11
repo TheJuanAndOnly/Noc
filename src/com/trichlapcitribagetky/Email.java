@@ -6,10 +6,10 @@ public class Email {
     private String prijemca;
     private int priorita;
     private float velkost;
-    private int datum;
+    private String datum;
     private float cas;
 
-    public Email(String odosielatel, String prijemca, int priorita, float velkost, int datum, float cas) {
+    public Email(String odosielatel, String prijemca, int priorita, float velkost, String datum, float cas) {
         this.odosielatel = odosielatel;
         this.prijemca = prijemca;
         this.priorita = priorita;
@@ -50,11 +50,11 @@ public class Email {
         this.velkost = velkost;
     }
 
-    public int getDatum() {
+    public String getDatum() {
         return datum;
     }
 
-    public void setDatum(int datum) {
+    public void setDatum(String datum) {
         this.datum = datum;
     }
 
@@ -64,5 +64,18 @@ public class Email {
 
     public void setCas(float cas) {
         this.cas = cas;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "odosielatel: %S\n" +
+                        "prijemca: %s\n" +
+                        "vysoka priorita: %s\n" +
+                        "velkost: %s\n" +
+                        "datum: %s\n" +
+                        "cas: %s\n",
+                odosielatel, prijemca, priorita, velkost, datum, cas
+        ).toLowerCase();
     }
 }

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -21,43 +22,70 @@ public class EmailHandler {
         Scanner scanner;
         try {
             scanner = new Scanner(new FileReader(new File(pathName)));
+            scanner.useLocale(Locale.US);
         } catch (FileNotFoundException e) {
             return RESULT_ERROR;
         }
 
         emails = new ArrayList<>();
 
-        while (scanner.hasNext()) {
+        while (scanner.hasNextLine()) {
+
             String odosielatel;
             if (scanner.hasNextLine()) {
                 odosielatel = scanner.nextLine();
-            } else return RESULT_ERROR;
+                System.out.println(odosielatel);
+            } else {
+                return RESULT_ERROR;
+            }
 
             String prijimatel;
             if (scanner.hasNextLine()) {
                 prijimatel = scanner.nextLine();
-            } else return RESULT_ERROR;
+                System.out.println(prijimatel);
+            } else {
+                return RESULT_ERROR;
+            }
 
             int priorita;
-            if (scanner.hasNextInt()) {
-                priorita = scanner.nextInt();
-            } else return RESULT_ERROR;
+            if (scanner.hasNextLine()) {
+                try {
+                    String s = scanner.nextLine();
+                    System.out.println(s);
+                    priorita = Integer.parseInt(s);
+                } catch (NumberFormatException e){
+                    return RESULT_ERROR;
+                }
+            } else {
+                return RESULT_ERROR;
+            }
 
             float velkost;
-            if (scanner.hasNextFloat()) {
-                velkost = scanner.nextFloat();
-            } else return RESULT_ERROR;
+            if (scanner.hasNextLine()) {
+                String s = scanner.nextLine();
+                velkost = Float.parseFloat(s);
+                System.out.println(velkost);
+            } else {
+                return RESULT_ERROR;
+            }
 
-            int datum;
-            if (scanner.hasNextInt()) {
-                datum = scanner.nextInt();
-            } else return RESULT_ERROR;
+            String datum;
+            if (scanner.hasNextLine()) {
+                datum = scanner.nextLine();
+                System.out.println(datum);
+            } else {
+                return RESULT_ERROR;
+            }
 
 
             float cas;
-            if (scanner.hasNextFloat()) {
-                cas = scanner.nextFloat();
-            } else return RESULT_ERROR;
+            if (scanner.hasNextLine()) {
+                String s = scanner.nextLine();
+                cas = Float.parseFloat(s);
+                System.out.println(cas);
+            } else {
+                return RESULT_ERROR;
+            }
 
             emails.add(
                     new Email(
@@ -68,9 +96,15 @@ public class EmailHandler {
                             datum,
                             cas
                     ));
+
+            if (scanner.hasNextLine()){
+                scanner.nextLine();
+            } else break;
         }
 
-        System.out.println(emails.toString());
+        for (Email e : emails){
+            System.out.println(e);
+        }
 
         return RESULT_OK;
     }
