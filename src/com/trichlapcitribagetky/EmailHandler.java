@@ -24,6 +24,7 @@ public class EmailHandler {
     public static final int RESULT_ERROR = -1;
 
     private List<Email> emails;
+    private List<Float> zaznam;
 
     public int vypisInfo(String pathName) {
         Scanner scanner;
@@ -111,7 +112,6 @@ public class EmailHandler {
     }
 
     public int najvacsiCas() {
-
         if (emails == null) {
             return RESULT_ERROR;
         }
@@ -160,6 +160,19 @@ public class EmailHandler {
 
     }
 
+    public int zaznamy() {
+        if (emails == null) {
+            return RESULT_ERROR;
+        }
 
+        zaznam = new ArrayList<>(emails.size());
+
+        for (Email email : emails) {
+            zaznam.add(email.getVelkost());
+            System.out.println(email.getVelkost());
+        }
+
+        return RESULT_OK;
+    }
 }
 

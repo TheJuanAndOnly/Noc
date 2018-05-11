@@ -15,7 +15,7 @@ public class UserInterface {
 
         Loop:
         while (input.hasNext()){
-            String s = input.next();
+            String s = input.next().toUpperCase();
 
             switch (s){
                 case "V":
@@ -23,13 +23,15 @@ public class UserInterface {
                     break;
 
                 case "C":
-                    if (handler.najvacsiCas() == -1) {
-                    System.out.println("Error, najskor treba vyvolat " + "V");
+                    if (handler.najvacsiCas() == EmailHandler.RESULT_ERROR) {
+                        System.out.println("Error, najskor treba vyvolat " + "V");
                     }
                     break;
 
                 case "E":
-                    System.out.println("Neimplementovane");
+                    if (handler.zaznamy() == EmailHandler.RESULT_ERROR) {
+                        System.out.println("Error, najskor treba vyvolat " + "V");
+                    }
                     break;
 
                 case "K":
