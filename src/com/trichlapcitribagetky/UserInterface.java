@@ -1,6 +1,7 @@
 package com.trichlapcitribagetky;
 
 import java.util.Scanner;
+import java.util.logging.Handler;
 
 /**
  * Created by Robert Gers on 11.05.2018.
@@ -22,15 +23,20 @@ public class UserInterface {
                     break;
 
                 case "C":
-
+                    if (handler.najvacsiCas() == -1) {
+                    System.out.println("Error, najskor treba vyvolat " + "V");
+                    }
                     break;
 
                 case "E":
-
+                    System.out.println("Neimplementovane");
                     break;
 
                 case "K":
                     break Loop;
+
+                default:
+                    System.out.println("Nespravny znak");
             }
         }
 
