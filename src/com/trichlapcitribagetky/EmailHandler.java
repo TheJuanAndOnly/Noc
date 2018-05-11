@@ -16,4 +16,16 @@ public class EmailHandler {
     public int vypisInfo(String pathName){
         return RESULT_ERROR;
     }
+
+    public float najvacsiCas() {
+        String najstarsiDatum = "";
+        float cas = 0f;
+        for (Email email : emails) {
+            if (email.getPriorita() == 1) {
+
+            }
+        }
+
+        return cas;
+    }
 }
