@@ -3,10 +3,18 @@ package com.trichlapcitribagetky;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+
 
 /**
  * Created by Robert Gers on 11.05.2018.
@@ -17,7 +25,7 @@ public class EmailHandler {
 
     private List<Email> emails;
 
-    public int vypisInfo(String pathName){
+    public int vypisInfo(String pathName) {
         Scanner scanner;
         try {
             scanner = new Scanner(new FileReader(new File(pathName)));
@@ -49,7 +57,7 @@ public class EmailHandler {
                 try {
                     String s = scanner.nextLine();
                     priorita = Integer.parseInt(s);
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     return RESULT_ERROR;
                 }
             } else {
@@ -90,27 +98,68 @@ public class EmailHandler {
                             cas
                     ));
 
-            if (scanner.hasNextLine()){
+            if (scanner.hasNextLine()) {
                 scanner.nextLine();
             } else break;
         }
 
-        for (Email e : emails){
+        for (Email e : emails) {
             System.out.println(e);
         }
 
         return RESULT_OK;
     }
 
-    public float najvacsiCas() {
-        String najstarsiDatum = "";
+    public int najvacsiCas() {
+
+        if (emails == null) {
+            return RESULT_ERROR;
+        }
+
+        Date najstarsiDatum = Date.from(Instant.now());
+        DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
+
         float cas = 0f;
+
         for (Email email : emails) {
-            if (email.getPriorita() == 1) {
+
+            if (email.getPriorita() == 0) {
+                continue;
+            }
+
+            String novyDatumS = email.getDatum().substring(0, 2) + "/"
+                    + email.getDatum().substring(2, 4) + "/"
+                    + email.getDatum().substring(4, email.getDatum().length());
+            Date novyDatum = null;
+            try {
+                novyDatum = sourceFormat.parse(novyDatumS);
+            } catch (ParseException e) {
+                System.out.println("Datum nebol spravne zadany");
+                break;
+            }
+
+
+            if (najstarsiDatum.compareTo(novyDatum) > 0) {
+
+                najstarsiDatum = novyDatum;
+                cas = email.getCas();
+
+            } else if (najstarsiDatum.compareTo(novyDatum) < 0) {
+
+            } else if (najstarsiDatum.compareTo(novyDatum) == 0) {
+
+                if (cas > email.getCas()) {
+                    cas = email.getCas();
+                }
 
             }
         }
 
-        return cas;
+        System.out.println(cas);
+        return RESULT_OK;
+
     }
+
+
 }
+
