@@ -1,9 +1,7 @@
 package com.trichlapcitribagetky;
 
 public class Main {
-
     public static void main(String[] args) {
-	// write your code here
-        System.out.println("coma mierda");
+	    UserInterface userInterface = new UserInterface();
     }
 }
