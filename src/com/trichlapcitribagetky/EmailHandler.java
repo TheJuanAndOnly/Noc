@@ -3,9 +3,10 @@ package com.trichlapcitribagetky;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by Robert Gers on 11.05.2018.
@@ -70,17 +71,41 @@ public class EmailHandler {
                     ));
         }
 
+        return RESULT_OK;
     }
 
     public float najvacsiCas() {
-        String najstarsiDatum = "";
+
+        String najstarsiDatum;
+
         float cas = 0f;
         for (Email email : emails) {
-            if (email.getPriorita() == 1) {
 
+            DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String novyDatumS = email.getDatum().substring(0,2) + "/" + email.getDatum().substring(2,4) + "/" + email.getDatum().substring(4, email.getDatum().length());
+            String najstarsiDatumS = email.getDatum().substring(0,2) + "/" + email.getDatum().substring(2,4) + "/" + email.getDatum().substring(4, email.getDatum().length());
+
+            Date staryDatum = (sourceFormat.parse(najstarsiDatumS)
+            Date novyDatum = sourceFormat.parse(novyDatumS);
+
+
+
+            if (date1.compareTo(date2) > 0) {
+                System.out.println("Date1 is after Date2");
+            } else if (date1.compareTo(date2) < 0) {
+                System.out.println("Date1 is before Date2");
+            } else if (date1.compareTo(date2) == 0) {
+                System.out.println("Date1 is equal to Date2");
+            } else {
+                System.out.println("How to get here?");
             }
+
         }
 
         return cas;
     }
+
+
+
 }
+
