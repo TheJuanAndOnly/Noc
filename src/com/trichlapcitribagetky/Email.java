@@ -6,10 +6,10 @@ public class Email {
     private String prijemca;
     private int priorita;
     private float velkost;
-    private String datum;
-    private String cas;
+    private int datum;
+    private float cas;
 
-    public Email(String odosielatel, String prijemca, int priorita, float velkost, String datum, String cas) {
+    public Email(String odosielatel, String prijemca, int priorita, float velkost, int datum, float cas) {
         this.odosielatel = odosielatel;
         this.prijemca = prijemca;
         this.priorita = priorita;
@@ -50,19 +50,19 @@ public class Email {
         this.velkost = velkost;
     }
 
-    public String getDatum() {
+    public int getDatum() {
         return datum;
     }
 
-    public void setDatum(String datum) {
+    public void setDatum(int datum) {
         this.datum = datum;
     }
 
-    public String getCas() {
+    public float getCas() {
         return cas;
     }
 
-    public void setCas(String cas) {
+    public void setCas(float cas) {
         this.cas = cas;
     }
 }
