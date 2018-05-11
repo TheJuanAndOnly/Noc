@@ -38,9 +38,9 @@ public class EmailHandler {
                 prijimatel = scanner.nextLine();
             } else return RESULT_ERROR;
 
-            boolean priorita;
+            int priorita;
             if (scanner.hasNextInt()) {
-                priorita = scanner.nextInt() == 1;
+                priorita = scanner.nextInt();
             } else return RESULT_ERROR;
 
             float velkost;
@@ -67,8 +67,11 @@ public class EmailHandler {
                             velkost,
                             datum,
                             cas
-                    ))
+                    ));
         }
 
+        System.out.println(emails.toString());
+
+        return RESULT_OK;
     }
 }
